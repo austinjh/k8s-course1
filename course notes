@@ -64,3 +64,12 @@ RNG=$(kubectl get svc rng -o go-template={{.spec.clusterIP}})
 
 kubectl apply -f https://k8smastery.com/insecure-dashboard.yaml (or microk8s.enable dashboard)
 
+kubectl get deploy/rng -o yaml > rng.yml
+kubectl apply -f rng.yml --validate=false
+
+kubectl label pods -l app=rng enabled=yes
+kubectl edit service rng
+
+
+kubectl label pod -l app=rng,pod-template-hash enabled-  #(Remove the 'enabled' label from the pod)
+
