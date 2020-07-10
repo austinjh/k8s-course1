@@ -73,3 +73,5 @@ kubectl edit service rng
 
 kubectl label pod -l app=rng,pod-template-hash enabled-  #(Remove the 'enabled' label from the pod)
 
+kubectl delete -f https://k8smastery.com/dockercoins.yaml
+kubectl delete daemonset/rng
