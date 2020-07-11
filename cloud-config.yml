@@ -1,0 +1,4 @@
+#cloud-config
+ssh_authorized_keys:
+  - ssh-rsa AAA...ZZZ example1@rancher
+  - ssh-rsa BBB...ZZZ example2@rancher

@@ -75,3 +75,19 @@ kubectl label pod -l app=rng,pod-template-hash enabled-  #(Remove the 'enabled' 
 
 kubectl delete -f https://k8smastery.com/dockercoins.yaml
 kubectl delete daemonset/rng
+
+#Example of yaml output from a dry run
+kubectl create deployment web --image nginx -o yaml --dry-run>> dryrun.yaml
+
+#Api Resources
+kubectl api-resources
+kubectl api-versions
+kubectl explain pod
+kubectl explain pod.spec
+kubectl explain pod.spec.volumes
+kubectl explain pod.spec --recursive
+
+#Source testing
+Yamllint
+kubeval
+
