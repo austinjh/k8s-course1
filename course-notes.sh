@@ -32,8 +32,6 @@ kubectl get service
 IP=$(kubectl get services littletomcat -o go-template --template '{{ .spec.clusterIP }}')
 
 
-da3a573ba2db2ff4dceef7155edf93a3
-
 kubectl create deployment redis --image=redis
 kubectl create deployment hasher --image=dockercoins/hasher:v0.1
 kubectl create deployment rng --image=dockercoins/rng:v0.1
@@ -78,6 +76,9 @@ kubectl delete daemonset/rng
 
 #Example of yaml output from a dry run
 kubectl create deployment web --image nginx -o yaml --dry-run>> dryrun.yaml
+#Dry run on Server
+kubectl create deployment web --image=nginx -o yaml > web.yaml
+kubectl apply -f web.yaml --server-dry-run --validate=false -o yaml
 
 #Api Resources
 kubectl api-resources
@@ -90,4 +91,26 @@ kubectl explain pod.spec --recursive
 #Source testing
 Yamllint
 kubeval
+
+curl -O https://k8smastery.com/just-a-pod.yaml
+kubectl apply -f just-a-pod.yaml
+#make change to yaml
+kubectl diff -f just-a-pod.yaml
+kubectl delete -f just-a-pod.yaml
+
+# Update strategy
+kubectl apply -f https://k8smastery.com/dockercoins.yaml
+
+#in 4 terminals - rolling updates (1.8)
+kubectl get pods -w 
+kubectl get replicasets -w
+
+kubectl set image deploy worker worker=dockercoins/worker:v0.2
+kubectl set image deploy worker worker=dockercoins/worker:v0.3
+kubectl rollout status deploy worker
+
+kubectl describe deploy worker #Also check the dashboard from earlier
+
+kubectl rollout undo deploy worker #reverse the latest rollout
+
 
