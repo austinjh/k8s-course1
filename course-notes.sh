@@ -113,4 +113,12 @@ kubectl describe deploy worker #Also check the dashboard from earlier
 
 kubectl rollout undo deploy worker #reverse the latest rollout
 
+kubectl rollout history worker
+
+kubectl describe replicasets -1 app=worker | grep -A3 Annotations
+
+kubectl rollout undo deployment worker --to-revision=1
+
+#Health Probes
+# See also: Apache Bench (ab) Load manager
 
