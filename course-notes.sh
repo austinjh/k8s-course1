@@ -122,3 +122,15 @@ kubectl rollout undo deployment worker --to-revision=1
 #Health Probes
 # See also: Apache Bench (ab) Load manager
 
+#ConfigMaps
+curl -O https://k8smastery.com/haproxy.cfg
+kubectl create configmap haproxy --from-file=haproxy.cfg
+kubectl get configmap haproxy -o yaml
+kubectl apply -f https://k8smastery.com/haproxy.yaml
+kubectl attach --namespace-shpod -ti shpod
+kubectl get pod haproxy -o wide
+IP=$(kubectl get pod haproxy -o json | jq -r .status.podIP)
+or kubectl get pod haproxy -o wide
+
+#Ingress
+kubectl describe -n ingress-nginx deploy/nginx-ingress-controller
